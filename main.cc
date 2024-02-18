@@ -7,12 +7,27 @@
 int main(){
     Deck d;
     Chip c;
+    Bot b;
+    int pot = 0;
+    int firstCard;
+    std::string inp;
     std::pair<int,int> hand;
     d.shuffle();
     d.print();
     while(1){
         hand = d.deal();
+        b.setHand(d.deal());
         printHand(hand);
+        while(1){
+            std::cout<<"[R/C] (Caps Sensitive): ";
+            std::cin>>inp;
+            if(inp!="R" || inp!="C") continue;
+
+        }
+        std::cout<<"First Drawn Card Is: "; printCard(firstCard = d.draw());
+        while(1){
+
+        }
         break;
     }
     return 0;

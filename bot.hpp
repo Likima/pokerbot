@@ -6,9 +6,18 @@
 
 class Bot {
     public:
-        Bot(Deck d);
+        Bot();
+        void setHand(std::pair<int,int>);
     private:
         Chip chips;
+        std::pair<int,int> hand;
 };
+
+Bot::Bot(){}
+
+void Bot::setHand(std::pair<int, int> deal){
+    hand = deal;
+    printHand(hand);
+}
 
 #endif // BOT_HPP

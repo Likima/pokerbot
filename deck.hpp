@@ -33,6 +33,11 @@ void printHand(std::pair<int,int> p){
         << ", " << card2.symbol << " of " << card2.suit << std::endl;
 }
 
+void printCard(int p){
+    cards card = createCardByValue(p);
+    std::cout << card.symbol << " of " << card.suit << std::endl;
+}
+
 class Deck {
     public:
         Deck();
