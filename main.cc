@@ -1,5 +1,6 @@
 #include "deck.hpp"
 #include "chips.hpp"
+#include "bot.hpp"
 
 #include <string>
 

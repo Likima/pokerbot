@@ -1,6 +1,14 @@
-//idea: have a risk factor and when user folds more, increase risk factor... etc
-//calculate number of bluffs and use for risk factor calculation.
+#ifndef BOT_HPP
+#define BOT_HPP
+
+#include "deck.hpp"
+#include "chips.hpp"
 
 class Bot {
-
+    public:
+        Bot(Deck d);
+    private:
+        Chip chips;
 };
+
+#endif // BOT_HPP

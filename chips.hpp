@@ -1,3 +1,6 @@
+#ifndef CHIPS_HPP
+#define CHIPS_HPP
+
 #include <vector>
 
 class Chip {
@@ -59,12 +62,4 @@ int Chip::bet(int money){
     return 0; // Bet successful
 }
 
-
-/*
-Chip Distributions
-White(1) - 20 chips
-Red(5) - 20 chips
-Blue(10) - 10 chips
-Green(25) - 5 chips
-Black(100) - 5 chips
-*/
+#endif // CHIPS_HPP
