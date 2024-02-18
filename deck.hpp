@@ -38,6 +38,7 @@ void printCard(int p){
     std::cout << card.symbol << " of " << card.suit << std::endl;
 }
 
+
 class Deck {
     public:
         Deck();
@@ -45,38 +46,47 @@ class Deck {
         void print();
         std::pair<int,int> deal();
         int draw();
+        void reset();
     private:
-        std::vector<int> cards;
+        std::vector<int> cardvec;
 };
 
 Deck::Deck(){
     for(int i = 0; i < 52; i++){
-        cards.push_back(i);
+        cardvec.push_back(i);
     }
+}
+
+void Deck::reset(){
+    cardvec.clear();
+    for(int i = 0; i < 52; i++){
+        cardvec.push_back(i);
+    }
+    shuffle();
 }
 
 void Deck::shuffle(){
     std::random_device rd;
     std::mt19937 g(rd());
-    std::shuffle(cards.begin(), cards.end(), g);
+    std::shuffle(cardvec.begin(), cardvec.end(), g);
 }
 
 void Deck::print(){
     for(int i = 0; i < 52; i++){
-        std::cout << cards[i] << " ";
+        std::cout << cardvec[i] << " ";
     }
     std::cout << std::endl;
 }
 
 std::pair<int,int> Deck::deal(){
-    std::pair<int,int> ret = std::make_pair(cards[0], cards[1]);
-    cards.erase(cards.begin(), cards.begin()+2);
+    std::pair<int,int> ret = std::make_pair(cardvec[0], cardvec[1]);
+    cardvec.erase(cardvec.begin(), cardvec.begin()+2);
     return ret;
 }
 
 int Deck::draw(){
-    int ret = cards.front();
-    cards.erase(cards.begin());
+    int ret = cardvec.front();
+    cardvec.erase(cardvec.begin());
     return ret;
 }
 

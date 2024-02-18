@@ -7,6 +7,7 @@ class Chip {
 public:
     Chip();
     int bet(int);
+    int getTotal();
 private:
     std::vector<std::pair<int, int>> chips;
     int total;
@@ -19,6 +20,10 @@ Chip::Chip() : chips {
     {5, 25},
     {5, 100}
 } {total = 845;}
+
+int Chip::getTotal(){
+    return total;
+}
 
 int Chip::bet(int money){
     if(money > total)
