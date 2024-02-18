@@ -33,9 +33,11 @@ int main() {
                     return 0;
                 }
                 std::cout << "You are the big blind. You now have $" << chips.getTotal() << " after betting $10." << std::endl;
+                bot.bet(5);
                 break;
             } else {
                 // User is the small blind
+                bot.bet(10);
                 if (chips.bet(5) == -1) {
                     std::cout << "You have lost." << std::endl;
                     return 0;
@@ -50,7 +52,41 @@ int main() {
 
         drawnCards.push_back(deck.draw());
 
-        // Additional game logic goes here...
+        while(true){
+            if(!bigBlind){
+                std::cout<<"[R/C/F]? (Case Sensitive) ";
+                std::cin>>input;
+                if(input == "R") {
+                    // User chooses to raise
+                    int raiseAmount;
+                    std::cout << "Enter the amount to raise: ";
+                    std::cin >> raiseAmount;
+                    if(chips.bet(raiseAmount) == -1) {
+                        std::cout<<"Please bet a smaller amount. You have $" << chips.getTotal() << "in total." << std::endl;
+                        continue;
+                    }
+                    std::cout << "You have raised $" << raiseAmount << ". You now have $" << chips.getTotal() << " in total." << std::endl;
+                    pot+=raiseAmount;
+                    break;
+                } else if(input == "C") {
+                    // User chooses to call
+                    if(chips.bet(5) == -1) {
+                        std::cout << "You have lost." << std::endl;
+                        return 0;
+                    }
+                    std::cout << "You have called. You now have $" << chips.getTotal() << " in total." << std::endl;
+                    break;
+                } else if(input == "F") {
+                    // User chooses to fold
+                    std::cout << "You have folded." << std::endl;
+                    break;
+                } else {
+                    std::cout << "Invalid input. Please enter 'R' to raise, 'C' to call, or 'F' to fold." << std::endl;
+                }
+                
+            }
+        }
+
 
         std::cout << "First drawn card is: ";
         printCard(drawnCards[0]);
