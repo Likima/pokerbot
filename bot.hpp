@@ -3,8 +3,21 @@
 //NOTE: if increasing number of people playing, make sure to change sample size in probability.
 #include "deck.hpp"
 #include "chips.hpp"
+#include "pokerlib.hpp"
 
 #include <vector>
+
+const std::vector<std::vector<int>> STRAIGHTS = {
+    {1,2,3,4,5}, {2,3,4,5,6}, {3,4,5,6,7}, {4,5,6,7,8}, {5,6,7,8,9}, 
+    {6,7,8,9,10}, {7,8,9,10,11}, {8,9,10,11,12}, {9,10,11,12,13}, {10,11,12,13,1}
+};
+
+void printVec(const std::vector<int>& vec) {
+    for (const auto& element : vec) {
+        std::cout << element << " ";
+    }
+    std::cout << std::endl;
+}
 
 bool isStraight(std::vector<int>& hand){
     // Has yet to be tested.
@@ -24,16 +37,48 @@ bool isStraight(std::vector<int>& hand){
     return false; // No straight found
 }
 
-float probStraight(std::vector<int>& hand){
+double probStraight(std::vector<int>& hand){
     std::vector<int> modHand;
+    std::vector<int> myVector = {0,0,0,0};
+    std::vector<int> fact = {45,46,47,48};
+    int index = 0; double event = 0; int prev;
     for (int i = 0; i < hand.size(); i++) {
         modHand.push_back((hand[i] % 13)+1);
     }
     std::sort(modHand.begin(), modHand.end());
 
-    if (isStraight(modHand)) return 1;
-    
+    if (isStraight(modHand)) return 1.0;
 
+    printVec(modHand);
+
+    for(auto &v : STRAIGHTS){
+        for(auto &n : modHand){
+            for(auto &i : v){
+                if(i == prev) continue;
+                if(n==i){
+                    index++;
+                }
+                prev = i;
+            }
+        }
+        if(index == 0) continue;
+        myVector[index-1]++;
+        index = 0;
+    }
+
+    for(auto &i : myVector){
+        std::cout<<i<<std::endl;
+    }
+    std::cout<<nChooseK(50,5)<<std::endl;
+    for(int x = 0; x < myVector.size(); x++){
+        int mult = 1;
+        for(int n = 0; n < x+1; n++){
+            mult*=fact[n];
+        }
+        event+= myVector[x] * pow(4,4-x) * mult / nChooseK(52-modHand.size(),5);
+    }
+    std::cout<<event<<std::endl;
+    return event;
 }
 
 class Bot {
@@ -63,6 +108,7 @@ float Bot::analyzeHand(std::vector<int> river = {}){
     std::vector<int> handAndRiver = river;
     handAndRiver.push_back(hand.first);
     handAndRiver.push_back(hand.second);
+    return 0.0;
 
 }
 

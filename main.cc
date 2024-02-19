@@ -16,6 +16,7 @@ int main() {
     std::vector<int> drawnCards;
     std::string input;
     std::pair<int, int> hand;
+    std::vector<int> handVec;
 
     deck.shuffle();
 
@@ -49,8 +50,13 @@ int main() {
 
         // Print the player's hand
         printHand(hand);
+        handVec.push_back(hand.first);
+        handVec.push_back(hand.second);
+        probStraight(handVec);
 
         drawnCards.push_back(deck.draw());
+
+        return 0;
 
         while(true){
             if(!bigBlind){
