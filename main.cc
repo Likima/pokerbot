@@ -1,10 +1,14 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <cmath>
+
 #include "deck.hpp"
 #include "chips.hpp"
 #include "bot.hpp"
+#include "probability.hpp"
 
-#include <iostream>
-#include <string>
-#include <vector>
 
 int main() {
     Deck deck;

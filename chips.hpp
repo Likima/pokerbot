@@ -1,8 +1,6 @@
 #ifndef CHIPS_HPP
 #define CHIPS_HPP
 
-#include <vector>
-
 class Chip {
 public:
     Chip();

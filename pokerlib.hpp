@@ -1,4 +1,3 @@
-#include <cmath>
 
 // Function to calculate n choose k (binomial coefficient)
 int nChooseK(int n, int k) {

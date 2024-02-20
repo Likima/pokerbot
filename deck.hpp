@@ -1,11 +1,6 @@
 #ifndef DECK_HPP
 #define DECK_HPP
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <random>
-
 struct cards{
     std::string symbol;
     std::string suit;
