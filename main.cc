@@ -52,7 +52,7 @@ int main() {
         printHand(hand);
         handVec.push_back(hand.first);
         handVec.push_back(hand.second);
-        probStraight(handVec);
+        std::cout<<experimental_straight(handVec)<<std::endl;
 
         drawnCards.push_back(deck.draw());
 

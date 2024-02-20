@@ -37,17 +37,60 @@ bool isStraight(std::vector<int>& hand){
     return false; // No straight found
 }
 
-double probStraight(std::vector<int>& hand){
-    std::vector<int> modHand;
-    std::vector<int> myVector = {0,0,0,0};
-    std::vector<int> fact = {45,46,47,48};
-    int index = 0; double event = 0; int prev;
-    for (int i = 0; i < hand.size(); i++) {
-        modHand.push_back((hand[i] % 13)+1);
+double experimental_straight(std::vector<int>& cards) {
+    int straight_count = 0;
+    int total_count = 0;
+    int runs = 0;
+    double percentage;
+
+    while (runs < 500000) {
+        std::vector<int> deck(52);
+        std::iota(deck.begin(), deck.end(), 1);
+        for (int card : cards) {
+            deck.erase(std::remove(deck.begin(), deck.end(), card), deck.end());
+        }
+        std::shuffle(deck.begin(), deck.end(), std::random_device());
+
+        std::vector<int> predefined_cards = cards;  // Use the provided cards
+
+        for (int i = 0; i < 5; i++) {
+            int card = deck.back();
+            deck.pop_back();
+            predefined_cards.push_back(card);
+        }
+
+        std::sort(predefined_cards.begin(), predefined_cards.end());
+
+        for (int i = 0; i < predefined_cards.size(); i++) {
+            predefined_cards[i] = predefined_cards[i] % 13;
+        }
+        std::sort(predefined_cards.begin(), predefined_cards.end());
+
+        if (isStraight(predefined_cards)) {
+            straight_count++;
+        }
+
+        total_count++;
+        percentage = (static_cast<double>(straight_count) / total_count) * 100;
+
+        runs++;
     }
+    return percentage;
+}
+
+double probStraight(std::vector<int>& hand){
+    std::vector<int> modHand = {3,4};
+    std::vector<int> myVector = {0,0,0,0};
+    std::vector<int> fact = {47,46,45,44};
+    int index = 0; double event = 0; int prev; int size = hand.size();
+    //for (int i = 0; i < hand.size(); i++) {
+    //    modHand.push_back((hand[i] % 13)+1);
+    //}
     std::sort(modHand.begin(), modHand.end());
 
     if (isStraight(modHand)) return 1.0;
+    std::sort(modHand.begin(), modHand.end());
+    modHand.erase(std::unique(modHand.begin(), modHand.end()), modHand.end());
 
     printVec(modHand);
 
@@ -69,19 +112,22 @@ double probStraight(std::vector<int>& hand){
     for(auto &i : myVector){
         std::cout<<i<<std::endl;
     }
-    std::cout<<nChooseK(50,5)<<std::endl;
+    int i52c7 = nChooseK(52-size,7-size);
     for(int x = 0; x < myVector.size(); x++){
         int mult = 1;
         for(int n = 0; n < x+1; n++){
             mult*=fact[n];
         }
-        event+= myVector[x] * pow(4,4-x) * mult / nChooseK(52-modHand.size(),5);
+        std::cout<<"Mult: " << mult<<std::endl;
+        event += myVector[x] * pow(4,4-x) * mult / i52c7;
+        event -= myVector[x]-1 * pow(4,5-x) / i52c7;
+        std::cout<<"Event: "<<event << std::endl;
     }
     std::cout<<event<<std::endl;
     return event;
-}
+    }
 
-class Bot {
+    class Bot {
     public:
         Bot();
         void setHand(std::pair<int,int>);
@@ -90,14 +136,14 @@ class Bot {
     private:
         Chip chips;
         std::pair<int,int> hand;
-};
+    };
 
-Bot::Bot(){}
+    Bot::Bot(){}
 
-void Bot::setHand(std::pair<int, int> deal){
-    hand = deal;
-    printHand(hand);
-}
+    void Bot::setHand(std::pair<int, int> deal){
+        hand = deal;
+        printHand(hand);
+    }
 
 void Bot::bet(int b){
     chips.bet(b);
