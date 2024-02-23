@@ -7,7 +7,7 @@
 
 bool isStraight(std::vector<int>& hand){
     // Has yet to be tested.
-    //Takes a sorted hand of unsuited cards and returns true if a straight is found
+    // Takes a sorted hand of unsuited cards and returns true if a straight is found
     if (hand.size() < 5)
         return false;
     int consecutiveCount = 1;
@@ -23,12 +23,30 @@ bool isStraight(std::vector<int>& hand){
     return false; // No straight found
 }
 
-double experimental_straight(std::vector<int>& cards) {
+bool isFlush(std::vector<int>& hand){
+    // Takes a hand of unsuited cards and returns true if a flush is found
+    if (hand.size() < 5)
+        return false;
+    std::vector<int> suits(4, 0);
+    for (int card : hand) {
+        suits[card / 13]++;
+    }
+    for (int count : suits) {
+        if (count >= 5)
+            return true; // Found a flush
+    }
+    return false; // No flush found
+}
+
+std::vector<double> experimental_odds(std::vector<int>& cards) {
     int handSize = cards.size();
+    std::vector<double> odds;
     int straight_count = 0;
+    int flush_count = 0;
     int total_count = 0;
     int runs = 0;
-    double percentage;
+    double straight_percentage;
+    double flush_percentage;
 
     while (runs < 500000) {
         std::vector<int> deck(52);
@@ -48,6 +66,10 @@ double experimental_straight(std::vector<int>& cards) {
 
         std::sort(predefined_cards.begin(), predefined_cards.end());
 
+        if (isFlush(predefined_cards)) {
+            flush_count++;
+        }
+
         for (int i = 0; i < predefined_cards.size(); i++) {
             predefined_cards[i] = predefined_cards[i] % 13;
         }
@@ -58,11 +80,13 @@ double experimental_straight(std::vector<int>& cards) {
         }
 
         total_count++;
-        percentage = (static_cast<double>(straight_count) / total_count);
+        straight_percentage = (static_cast<double>(straight_count) / total_count);
+        flush_percentage = (static_cast<double>(flush_count) / total_count);
 
         runs++;
     }
-    return percentage;
+    odds = {straight_percentage, flush_percentage};
+    return odds;
 }
 
 #endif // PROBABILITY_HPP

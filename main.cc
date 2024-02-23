@@ -8,6 +8,7 @@
 #include "chips.hpp"
 #include "bot.hpp"
 #include "probability.hpp"
+#include "pokerlib.hpp"
 
 
 int main() {
@@ -56,7 +57,7 @@ int main() {
         printHand(hand);
         handVec.push_back(hand.first);
         handVec.push_back(hand.second);
-        std::cout<<experimental_straight(handVec)<<std::endl;
+        //printVec(experimental_odds(handVec));
 
         drawnCards.push_back(deck.draw());
 

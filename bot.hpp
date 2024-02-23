@@ -7,13 +7,6 @@ const std::vector<std::vector<int>> STRAIGHTS = {
     {6,7,8,9,10}, {7,8,9,10,11}, {8,9,10,11,12}, {9,10,11,12,13}, {10,11,12,13,1}
 };
 
-void printVec(const std::vector<int>& vec) {
-    for (const auto& element : vec) {
-        std::cout << element << " ";
-    }
-    std::cout << std::endl;
-}
-
 class Bot {
     public:
         Bot();

@@ -14,3 +14,17 @@ int nChooseK(int n, int k) {
     }
     return result;
 }
+
+void printVec(const std::vector<int>& vec) {
+    for (const auto& element : vec) {
+        std::cout << element << " ";
+    }
+    std::cout << std::endl;
+}
+
+void printVec(const std::vector<double>& vec) {
+    for (const auto& element : vec) {
+        std::cout << element << " ";
+    }
+    std::cout << std::endl;
+}
