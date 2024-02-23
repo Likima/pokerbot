@@ -6,9 +6,9 @@
 
 #include "deck.hpp"
 #include "chips.hpp"
-#include "bot.hpp"
 #include "probability.hpp"
 #include "pokerlib.hpp"
+#include "bot.hpp"
 
 
 int main() {
@@ -61,8 +61,6 @@ int main() {
 
         drawnCards.push_back(deck.draw());
 
-        return 0;
-
         while(true){
             if(!bigBlind){
                 std::cout<<"[R/C/F]? (Case Sensitive) ";
@@ -94,13 +92,15 @@ int main() {
                 } else {
                     std::cout << "Invalid input. Please enter 'R' to raise, 'C' to call, or 'F' to fold." << std::endl;
                 }
-                
             }
+            //should put if not big blind here
+            break;
         }
 
 
         std::cout << "First drawn card is: ";
         printCard(drawnCards[0]);
+        bot.analyzeHand(drawnCards);
 
         turn++;
         break;

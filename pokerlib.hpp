@@ -17,7 +17,7 @@ int nChooseK(int n, int k) {
 
 void printVec(const std::vector<int>& vec) {
     for (const auto& element : vec) {
-        std::cout << element << " ";
+        printCard(element);
     }
     std::cout << std::endl;
 }

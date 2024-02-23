@@ -11,6 +11,7 @@ class Bot {
     public:
         Bot();
         void setHand(std::pair<int,int>);
+        void appendHand(int);
         void bet(int);
         float analyzeHand(std::vector<int>);
     private:
@@ -31,10 +32,16 @@ void Bot::bet(int b){
 }
 
 float Bot::analyzeHand(std::vector<int> river = {}){
-
+    std::vector<double> probabilities;
     std::vector<int> handAndRiver = river;
     handAndRiver.push_back(hand.first);
     handAndRiver.push_back(hand.second);
+    std::cout<<"My hand is: ";
+    printVec(handAndRiver);
+    probabilities = experimental_odds(handAndRiver);
+    std::cout<<"The probability I get a straight is: " << probabilities[0]*100 <<"%"<<std::endl;
+    std::cout<<"The probability I get a flush is: " << probabilities[1]*100 <<"%"<<std::endl;
+
     return 0.0;
 
 }
