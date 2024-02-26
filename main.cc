@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <random>
 #include <cmath>
+#include <fstream>
+#include <sstream>
 
 #include "deck.hpp"
 #include "chips.hpp"
@@ -96,7 +98,6 @@ int main() {
             //should put if not big blind here
             break;
         }
-
 
         std::cout << "First drawn card is: ";
         printCard(drawnCards[0]);

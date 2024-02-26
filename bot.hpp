@@ -32,19 +32,20 @@ void Bot::bet(int b){
 }
 
 float Bot::analyzeHand(std::vector<int> river = {}){
+    //analyzes 100k hands and returns a scaled score on how good the said hand is.
+    //experimental_odds returns a vector of probabilities.
+    
     std::vector<int> a = {9,10,11,12,0};
     std::vector<double> probabilities;
     std::vector<int> handAndRiver = river;
     handAndRiver.push_back(hand.first);
     handAndRiver.push_back(hand.second);
-    std::cout<<"Testing probability of flush: ";
-    std::cout<<isFlush(a)<<std::endl;
-    std::cout<<"Testing probability of royal flush: ";
-    std::cout<<isRoyalFlush(a)<<std::endl;
 
     std::cout<<"My hand is: ";
     printVec(handAndRiver);
+    
     probabilities = experimental_odds(handAndRiver);
+    
     std::cout<<"The probability I get a straight is: " << probabilities[0]*100 <<"%"<<std::endl;
     std::cout<<"The probability I get a flush is: " << probabilities[1]*100 <<"%"<<std::endl;
     std::cout<<"The probability I get a ROYAL flush is: " << probabilities[2]*100 <<"%"<<std::endl;

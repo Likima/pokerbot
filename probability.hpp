@@ -76,7 +76,21 @@ bool isRoyalFlush(std::vector<int>& hand){
     return false; // No royal flush found
 }
 
+void saveScoresToFile(const std::vector<double>& odds, int numTests) {
+    std::ofstream file("saved_scores.txt");
+    if (file.is_open()) {
+        file << "Number of tests run: " << numTests << std::endl;
+        file << "Straight Percentage: " << odds[0] << std::endl;
+        file << "Flush Percentage: " << odds[1] << std::endl;
+        file << "Royal Flush Percentage: " << odds[2] << std::endl;
+        file << "Straight Flush Percentage: " << odds[3] << std::endl;
+        file.close();
+    }
+}
+
+
 std::vector<double> experimental_odds(std::vector<int>& cards) {
+    cards.clear(); //for making a large test file.
     int handSize = cards.size();
     std::vector<double> odds;
     int straight_count = 0;
@@ -90,7 +104,7 @@ std::vector<double> experimental_odds(std::vector<int>& cards) {
     double royal_flush_percentage;
     double straight_flush_percentage;
 
-    while (runs < 500000) {
+    while (runs < 5000000) {
         std::vector<int> deck(52);
         std::iota(deck.begin(), deck.end(), 1);
         for (int card : cards) {
@@ -140,6 +154,7 @@ std::vector<double> experimental_odds(std::vector<int>& cards) {
         runs++;
     }
     odds = {straight_percentage, flush_percentage, royal_flush_percentage, straight_flush_percentage};
+    saveScoresToFile(odds, runs);
     return odds;
 }
 

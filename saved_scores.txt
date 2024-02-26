@@ -1,0 +1,5 @@
+Number of tests run: 5000000
+Straight Percentage: 0.0431118
+Flush Percentage: 0.0275098
+Royal Flush Percentage: 2.3e-05
+Straight Flush Percentage: 0.0003252
